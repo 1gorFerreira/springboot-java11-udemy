@@ -7,6 +7,7 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.igorlearning.udemycourse.entities.pk.OrderItemPK;
 
 @Entity
@@ -15,7 +16,7 @@ public class OrderItem implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
-	private OrderItemPK id;
+	private OrderItemPK id = new OrderItemPK();//SEMPRE QUE CRIAR ID COMPOSTO, É PRECISO INSTANCIAR;
 	
 	private Integer quantity;
 	private Double price;
@@ -24,13 +25,14 @@ public class OrderItem implements Serializable{
 		
 	}
 	
-	public OrderItem(Product product, Order order, Integer quantity, Double price) {
+	public OrderItem(Order order, Product product, Integer quantity, Double price) {
 		id.setOrder(order);
 		id.setProduct(product);
 		this.quantity = quantity;
 		this.price = price;
 	}
 	
+	@JsonIgnore //Para cortar a associação do Order com o OrderItem, aplica o JsonIgnore no get;
 	public Order getOrder() {
 		return id.getOrder();
 	}

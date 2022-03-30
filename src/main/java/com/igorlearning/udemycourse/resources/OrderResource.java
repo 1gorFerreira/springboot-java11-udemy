@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.igorlearning.udemycourse.entities.Order;
-import com.igorlearning.udemycourse.entities.User;
 import com.igorlearning.udemycourse.services.OrderService;
 
 @RestController
