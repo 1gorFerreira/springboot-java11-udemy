@@ -35,7 +35,7 @@ public class Order implements Serializable{
 	private Integer orderStatus;
 	
 	@ManyToOne
-	@JoinColumn(name = "client_id")//Na tabela Pedidos no BD eu terei uma chave estrangeira chamada client_id, que conter� o id do usu�rio associado ao pedido;
+	@JoinColumn(name = "client_id")//Na tabela Pedidos no BD eu terei uma chave estrangeira chamada client_id, que conterá o id do usuário associado ao pedido;
 	private User client;
 	
 	@OneToMany(mappedBy = "id.order")
@@ -98,6 +98,14 @@ public class Order implements Serializable{
 
 	public Set<OrderItem> getItems(){
 		return items;
+	}
+	
+	public Double getTotal() {
+		Double total = 0.0;
+		for(OrderItem x : items) {
+			total += x.getSubTotal();
+		}
+		return total;
 	}
 
 	@Override
