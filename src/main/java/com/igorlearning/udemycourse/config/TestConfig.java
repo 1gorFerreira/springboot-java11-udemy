@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import com.igorlearning.udemycourse.entities.Category;
 import com.igorlearning.udemycourse.entities.Order;
 import com.igorlearning.udemycourse.entities.OrderItem;
+import com.igorlearning.udemycourse.entities.Payment;
 import com.igorlearning.udemycourse.entities.Product;
 import com.igorlearning.udemycourse.entities.User;
 import com.igorlearning.udemycourse.entities.enums.OrderStatus;
@@ -80,5 +81,9 @@ public class TestConfig implements CommandLineRunner {
 		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice()); 
 
 	    orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
+	    
+	    Payment pay1 = new Payment(null, Instant.parse("2019-06-20T21:53:07Z"), o1);
+	    o1.setPayment(pay1);
+	    orderRepository.save(o1); //Para salvar um objeto dependente numa relação 1-1, não chamamos o repository do próprio objeto. Ao salvar o order, o JPA se encarrega de salvar o payment;
 	}
 }
